@@ -26,8 +26,10 @@ echo "Folder check"
 echo
 if [ $foldercheck == $foldername ] >/dev/null 2>&1
 then
-chown $1 $2
-echo "Folder exist, changes compited"
+echo "Folder exist, start chown (RUN WITH SUDO!)"
+chown $username $foldername >/dev/null 2>&1
+echo
+echo "If u have permissions - changed passed, if not - use sudo"
 else
 echo "[!!!ERROR] Following folder does not exist [ERROR!!!]"
 fi
