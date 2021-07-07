@@ -2,34 +2,43 @@
 
 #User like var
 username=$1
+#usercheck like var
 usercheck=`getent passwd | cut -d: -f1 | grep $username`
 
 #Verification of user (exist or not exist). All system errors will not showed
-echo "User check"
+echo " User check "
 echo
 if [ $usercheck == $username ] >/dev/null 2>&1
 then
-echo "User exist, check passed"
+echo " Ok, check passed "
 echo
 else
 #print error message
-echo "[!!!ERROR] Following user does not exist [ERROR!!!]"
+echo " [!!!ERROR] Following user does not exist [ERROR!!!] "
 exit
 fi
 
 #folder like var
+echo " Folder check "
 foldername=$2
-foldercheck=`ls | grep $foldername`
+foo=$foldername
+searchedfolder=`echo ${foo##*/}` 
+foldercheck=`cd $foldername >/dev/null 2>&1 && cd .. && ls | grep $searchedfolder`
 
 #Folder verification (exist or not exist). All system errors will not showed
-echo "Folder check"
 echo
-if [ $foldercheck == $foldername ] >/dev/null 2>&1
+if [ $foldercheck == $searchedfolder ] >/dev/null 2>&1
 then
-echo "Folder exist, start chown (RUN WITH SUDO!)"
-chown $username $foldername >/dev/null 2>&1
+echo " Ok, check passed "
+echo " Start chown "
 echo
-echo "If u have permissions - changed passed, if not - use sudo"
+chown $username $foldername >/dev/null 2>&1
+echo " Looking good, changes passed "
+echo
+echo " If u have permissions - changed passed, if not - use sudo "
 else
-echo "[!!!ERROR] Following folder does not exist [ERROR!!!]"
+echo " [!!!ERROR] Following folder does not exist [ERROR!!!] "
 fi
+
+echo
+echo " End of script "
