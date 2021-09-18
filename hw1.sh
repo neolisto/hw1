@@ -18,8 +18,6 @@ echo " [!!!ERROR] Following user does not exist [ERROR!!!] "
 exit
 fi
 
-# 123
-
 #folder like var
 echo " Folder check "
 foldername=$2
